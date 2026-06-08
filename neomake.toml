@@ -1,0 +1,24 @@
+$bd = "target"
+$bn = "stlr"
+$bdbg = "${bd}/debug/${bn}"
+$br = "${bd}/release/${bn}"
+
+$srcf = glob("src/**/*.rs")
+$slintf = glob("src/**/*.slint")
+
+# build: base build (with flags)
+[tasks.build]
+inputs  = ${srcf} + ${slintf} + ["Cargo.toml"]
+command = "cargo build"
+outputs = ["${bdbg}"]
+
+# release: optimizes binary
+[tasks.release]
+inputs  = ${srcf} + ${slintf} + ["Cargo.toml"]
+command = "cargo build --release"
+outputs = ["${br}"]
+
+# run: build and run in debug mode
+[tasks.run]
+command = "cargo run"
+deps = ["build"]
