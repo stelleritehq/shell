@@ -3,6 +3,8 @@
 //! Slint's Material Design Kit (MD3) is forked by this oraganization, and may be modified
     //! Original Authors: @tronical, @ogoffart and @NigelBreslaw
 
+slint::include_modules!();
+
 fn main() {
-    println!("Hello, Stellerite!");
+    App::new().unwrap().run().unwrap();
 }
