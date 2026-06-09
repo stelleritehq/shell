@@ -1,6 +1,8 @@
 // Copyright © SixtyFPS GmbH <info@slint.dev>
 // SPDX-License-Identifier: MIT
 
+// TODO: stlr fix*: thread 'main' (56044) panicked at (~path); REASON: Recursion detected
+
 import { MaterialText } from "./material_text.slint";
 import { MaterialPalette } from "../styling/material_palette.slint";
 import { MaterialTypography } from "../styling/material_typography.slint";
@@ -10,12 +12,14 @@ export component ToolTip {
 
     z: 10000;
 
+    max_width: 200px;
+
     background_layer := Rectangle {
         border_radius: 4px;
         background: MaterialPalette.inverse_surface;
+        width: parent.width;
 
         layout := HorizontalLayout {
-            max_width: 200px;
             padding_top: 4px;
             padding_bottom: 4px;
             padding_left: 8px;
