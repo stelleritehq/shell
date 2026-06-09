@@ -1,0 +1,166 @@
+// Copyright (c) 2026 @rokybeast (Mohammed Sajid Shaik); All Rights Reserved.
+// re-export everything from the material library for use in shells
+
+//! @material -> ../crates/md3/material.slint (a direct crate import) [build.rs]
+//! the direct crate import method WILL change, as @material will become primary
+
+// components
+import {
+    AppBar,
+    SmallAppBar,
+    MediumAppBar,
+    LargeAppBar,
+} from "../crates/md3/material.slint";
+import { Badge } from "../crates/md3/material.slint";
+import { BottomAppBar } from "../crates/md3/material.slint";
+import {
+    CheckState,
+    CheckBox,
+    CheckBoxTile,
+} from "../crates/md3/material.slint";
+import {
+    ActionChip,
+    FilterChip,
+    InputChip,
+} from "../crates/md3/material.slint";
+import {
+    DatePickerPopup,
+    DatePickerAdapter,
+} from "../crates/md3/material.slint";
+import { Dialog, FullscreenDialog } from "../crates/md3/material.slint";
+import { Drawer, ModalDrawer } from "../crates/md3/material.slint";
+import { DropDownMenu } from "../crates/md3/material.slint";
+import {
+    VerticalDivider,
+    HorizontalDivider,
+} from "../crates/md3/material.slint";
+import { ModalBottomSheet } from "../crates/md3/material.slint";
+import {
+    ElevatedCard,
+    FilledCard,
+    OutlinedCard,
+} from "../crates/md3/material.slint";
+import { ElevatedButton } from "../crates/md3/material.slint";
+import { Elevation } from "../crates/md3/material.slint";
+import { ExtendedTouchArea } from "../crates/md3/material.slint";
+import { FilledButton } from "../crates/md3/material.slint";
+import { FilledIconButton } from "../crates/md3/material.slint";
+import { FloatingActionButton, FABStyle } from "../crates/md3/material.slint";
+import { Grid } from "../crates/md3/material.slint";
+import { Horizontal } from "../crates/md3/material.slint";
+import { Icon } from "../crates/md3/material.slint";
+import { IconButton } from "../crates/md3/material.slint";
+import { OutlineButton } from "../crates/md3/material.slint";
+import { OutlineIconButton } from "../crates/md3/material.slint";
+import { Avatar, ListTile } from "../crates/md3/material.slint";
+import { ListView } from "../crates/md3/material.slint";
+import { MaterialText } from "../crates/md3/material.slint";
+import {
+    MaterialWindow,
+    MaterialWindowAdapter,
+} from "../crates/md3/material.slint";
+import { PopupMenu } from "../crates/md3/material.slint";
+import { NavigationBar } from "../crates/md3/material.slint";
+import {
+    NavigationDrawer,
+    ModalNavigationDrawer,
+} from "../crates/md3/material.slint";
+import { NavigationRail } from "../crates/md3/material.slint";
+import {
+    CircularProgressIndicator,
+    LinearProgressIndicator,
+} from "../crates/md3/material.slint";
+import { RadioButton, RadioButtonTile } from "../crates/md3/material.slint";
+import { SearchBar } from "../crates/md3/material.slint";
+import { ScrollView } from "../crates/md3/material.slint";
+import { Slider } from "../crates/md3/material.slint";
+import { SnackBar } from "../crates/md3/material.slint";
+import {
+    StateLayerArea,
+    StateLayer,
+    Ripple,
+} from "../crates/md3/material.slint";
+import { SegmentedButton } from "../crates/md3/material.slint";
+import { Switch } from "../crates/md3/material.slint";
+import { TabBar, SecondaryTabBar } from "../crates/md3/material.slint";
+import { TextButton } from "../crates/md3/material.slint";
+import { TextField } from "../crates/md3/material.slint";
+import { TimePickerPopup, Time } from "../crates/md3/material.slint";
+import { TonalButton } from "../crates/md3/material.slint";
+import { TonalIconButton } from "../crates/md3/material.slint";
+import { ToolTip } from "../crates/md3/material.slint";
+import { Vertical } from "../crates/md3/material.slint";
+import { Modal } from "../crates/md3/material.slint";
+
+// items (list, nav, menu)
+import { ListItem } from "../crates/md3/material.slint";
+import { NavigationItem, NavigationGroup } from "../crates/md3/material.slint";
+import { MenuItem } from "../crates/md3/material.slint";
+
+// styles (anims, colors, typos and stuff)
+import { MaterialAnimations } from "../crates/md3/material.slint";
+import { MaterialScheme, MaterialSchemes } from "../crates/md3/material.slint";
+import { MaterialStyleMetrics } from "../crates/md3/material.slint";
+import { MaterialPalette } from "../crates/md3/material.slint";
+import { MaterialTypography } from "../crates/md3/material.slint";
+
+
+// export
+export { AppBar, SmallAppBar, MediumAppBar, LargeAppBar }
+export { Badge }
+export { BottomAppBar }
+export { CheckState, CheckBox, CheckBoxTile }
+export { ActionChip, FilterChip, InputChip }
+export { DatePickerPopup, DatePickerAdapter }
+export { Dialog, FullscreenDialog }
+export { Drawer, ModalDrawer }
+export { DropDownMenu }
+export { VerticalDivider, HorizontalDivider }
+export { ModalBottomSheet }
+export { ElevatedCard, FilledCard, OutlinedCard }
+export { ElevatedButton }
+export { Elevation }
+export { ExtendedTouchArea }
+export { FilledButton }
+export { FilledIconButton }
+export { FloatingActionButton, FABStyle }
+export { Grid }
+export { Horizontal }
+export { Icon }
+export { IconButton }
+export { OutlineButton }
+export { OutlineIconButton }
+export { Avatar, ListTile }
+export { ListView }
+export { MaterialText }
+export { MaterialWindow, MaterialWindowAdapter }
+export { PopupMenu }
+export { NavigationBar }
+export { NavigationDrawer, ModalNavigationDrawer }
+export { NavigationRail }
+export { CircularProgressIndicator, LinearProgressIndicator }
+export { RadioButton, RadioButtonTile }
+export { SearchBar }
+export { ScrollView }
+export { Slider }
+export { SnackBar }
+export { StateLayerArea, StateLayer, Ripple }
+export { SegmentedButton }
+export { Switch }
+export { TabBar, SecondaryTabBar }
+export { TextButton }
+export { TextField }
+export { TimePickerPopup, Time }
+export { TonalButton }
+export { TonalIconButton }
+export { ToolTip }
+export { Vertical }
+export { Modal }
+export { ListItem }
+export { NavigationItem, NavigationGroup }
+export { MenuItem }
+export { MaterialAnimations }
+export { MaterialScheme, MaterialSchemes }
+export { MaterialStyleMetrics }
+export { MaterialPalette }
+export { MaterialTypography }
