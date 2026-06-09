@@ -1,2 +1,6 @@
+# rust
 /target
+# zed settings
 .zed/
+# neomake cache
+.neomake/
