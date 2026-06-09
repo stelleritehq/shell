@@ -1,9 +1,16 @@
 //! build.rs
 //! Required for Slint to build
-//! No Args added yet 
-// TODO: add md3 and live reload args
+//! No Args added yet
+// TODO: add live reload args
 // TODO: setup wgpu w/ opengl
 
 fn main() {
-    slint_build::compile("ui/app.slint").unwrap();
+    let config = slint_build::CompilerConfiguration::new().with_library_paths(
+        std::collections::HashMap::from([(
+            "material".to_string(),
+            std::path::Path::new(&std::env::var_os("CARGO_MANIFEST_DIR").unwrap())
+                .join("crates/md3/material.slint"),
+        )]),
+    );
+    // slint_build::compile_with_config("ui/main.slint", config).unwrap();
 }
