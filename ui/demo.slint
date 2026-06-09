@@ -1,0 +1,1449 @@
+// Copyright (c) 2026 @rokybeast (Mohammed Sajid Shaik); All Rights Reserved.
+// MD3 components library
+
+// components
+import { SmallAppBar } from "@material";
+import { Badge } from "@material";
+import { BottomAppBar } from "@material";
+import { CheckState, CheckBox } from "@material";
+import { ActionChip, FilterChip, InputChip } from "@material";
+import { VerticalDivider, HorizontalDivider } from "@material";
+import { ElevatedCard, FilledCard, OutlinedCard } from "@material";
+import { ElevatedButton } from "@material";
+import { Elevation } from "@material";
+import { FilledButton } from "@material";
+import { FilledIconButton } from "@material";
+import { FloatingActionButton, FABStyle } from "@material";
+import { Icon } from "@material";
+import { IconButton } from "@material";
+import { OutlineButton } from "@material";
+import { OutlineIconButton } from "@material";
+import { Avatar, ListTile } from "@material";
+import { ListView } from "@material";
+import { MaterialText } from "@material";
+import { NavigationBar } from "@material";
+import { CircularProgressIndicator, LinearProgressIndicator } from "@material";
+import { RadioButton } from "@material";
+import { SearchBar } from "@material";
+import { ScrollView } from "@material";
+import { Slider } from "@material";
+import { SegmentedButton } from "@material";
+import { Switch } from "@material";
+import { TabBar, SecondaryTabBar } from "@material";
+import { TextButton } from "@material";
+import { TextField } from "@material";
+import { TonalButton } from "@material";
+import { TonalIconButton } from "@material";
+import { ToolTip } from "@material";
+import { Dialog } from "@material";
+import { SnackBar } from "@material";
+
+// items (list, nav, menu)
+import { NavigationItem } from "@material";
+
+// styles (anims, colors, typos and stuff)
+import { MaterialAnimations } from "@material";
+import { MaterialPalette } from "@material";
+import { MaterialTypography } from "@material";
+import { MaterialStyleMetrics } from "@material";
+import { MaterialScheme, MaterialSchemes } from "@material";
+import { ToolTip } from "@material";
+
+// a section header; for every section (to label)
+component SectionHeader {
+    in property <string> title;
+
+    HorizontalLayout {
+        padding-top: 24px;
+        padding-bottom: 8px;
+
+        MaterialText {
+            text: root.title;
+            style: MaterialTypography.title_large;
+            color: MaterialPalette.primary;
+        }
+    }
+}
+
+component SubSectionHeader {
+    in property <string> title;
+
+    HorizontalLayout {
+        padding-top: 12px;
+        padding-bottom: 4px;
+
+        MaterialText {
+            text: root.title;
+            style: MaterialTypography.title_small;
+            color: MaterialPalette.on_surface_variant;
+        }
+    }
+}
+
+// to display palette colors, color swatch
+component ColorSwatch {
+    in property <string> label;
+    in property <color> swatch_color;
+    in property <color> text_color: MaterialPalette.on_surface;
+
+    width: 80px;
+    height: 52px;
+
+    Rectangle {
+        width: 100%;
+        height: 100%;
+        background: root.swatch_color;
+        border-radius: MaterialStyleMetrics.border_radius_8;
+
+        MaterialText {
+            x: 4px;
+            y: parent.height - self.height - 4px;
+            text: root.label;
+            style: MaterialTypography.label_small;
+            color: root.text_color;
+        }
+    }
+}
+
+// main demo window to keep things in
+export component App inherits Window {
+    title: "MD3 Component Library";
+    width: 900px;
+    height: 720px;
+    background: MaterialPalette.background;
+
+    // states
+    in-out property <int> nav-index: 0;
+    in-out property <int> tab-index: 0;
+    in-out property <int> secondary-tab-index: 0;
+    in-out property <int> segmented-index: 0;
+    in-out property <int> radio-selected: 0;
+    in-out property <float> slider-value: 40;
+    in-out property <float> progress-value: 0.65;
+    in-out property <bool> switch-on: true;
+    in-out property <bool> switch-off: false;
+    in-out property <string> text-field-value: "";
+    in-out property <bool> filter-chip-checked: false;
+
+    // filler nav items
+    property <[NavigationItem]> nav-items: [
+        { text: "Home" },
+        { text: "Explore" },
+        { text: "Library" },
+    ];
+
+    property <[NavigationItem]> tab-items: [
+        { text: "Overview" },
+        { text: "Details" },
+        { text: "Reviews" },
+    ];
+
+    // base layout
+    VerticalLayout {
+        spacing: 0px;
+
+        // the top bar
+        SmallAppBar {
+            title: "MD3 Component Library";
+            show-background: true;
+        }
+
+        // scrollable content
+        ScrollView {
+            vertical-stretch: 1;
+
+            VerticalLayout {
+                padding: 24px;
+                spacing: 8px;
+
+                // color palette
+                SectionHeader {
+                    title: "Color Palette";
+                }
+
+                MaterialText {
+                    text: "MaterialPalette (light/dark)";
+                    style: MaterialTypography.body_medium;
+                    color: MaterialPalette.on_surface_variant;
+                }
+
+                HorizontalLayout {
+                    spacing: 8px;
+
+                    ColorSwatch {
+                        label: "Primary";
+                        swatch_color: MaterialPalette.primary;
+                        text_color: MaterialPalette.on_primary;
+                    }
+
+                    ColorSwatch {
+                        label: "On Primary";
+                        swatch_color: MaterialPalette.on_primary;
+                        text_color: MaterialPalette.primary;
+                    }
+
+                    ColorSwatch {
+                        label: "Primary Ctr";
+                        swatch_color: MaterialPalette.primary_container;
+                        text_color: MaterialPalette.on_primary_container;
+                    }
+
+                    ColorSwatch {
+                        label: "Secondary";
+                        swatch_color: MaterialPalette.secondary;
+                        text_color: MaterialPalette.on_secondary;
+                    }
+
+                    ColorSwatch {
+                        label: "Sec. Ctr";
+                        swatch_color: MaterialPalette.secondary_container;
+                        text_color: MaterialPalette.on_secondary_container;
+                    }
+
+                    ColorSwatch {
+                        label: "Tertiary";
+                        swatch_color: MaterialPalette.tertiary;
+                        text_color: MaterialPalette.on_tertiary;
+                    }
+
+                    ColorSwatch {
+                        label: "Tert. Ctr";
+                        swatch_color: MaterialPalette.tertiary_container;
+                        text_color: MaterialPalette.on_tertiary_container;
+                    }
+
+                    ColorSwatch {
+                        label: "Error";
+                        swatch_color: MaterialPalette.error;
+                        text_color: MaterialPalette.on_error;
+                    }
+                }
+
+                HorizontalLayout {
+                    spacing: 8px;
+
+                    ColorSwatch {
+                        label: "Surface";
+                        swatch_color: MaterialPalette.surface;
+                    }
+
+                    ColorSwatch {
+                        label: "Srf. Ctr Low";
+                        swatch_color: MaterialPalette.surface_container_low;
+                    }
+
+                    ColorSwatch {
+                        label: "Srf. Ctr";
+                        swatch_color: MaterialPalette.surface_container;
+                    }
+
+                    ColorSwatch {
+                        label: "Srf. Ctr Hi";
+                        swatch_color: MaterialPalette.surface_container_high;
+                    }
+
+                    ColorSwatch {
+                        label: "Srf. Highest";
+                        swatch_color: MaterialPalette.surface_container_highest;
+                    }
+
+                    ColorSwatch {
+                        label: "Outline";
+                        swatch_color: MaterialPalette.outline;
+                        text_color: MaterialPalette.surface;
+                    }
+
+                    ColorSwatch {
+                        label: "Inv. Surface";
+                        swatch_color: MaterialPalette.inverse_surface;
+                        text_color: MaterialPalette.inverse_on_surface;
+                    }
+
+                    ColorSwatch {
+                        label: "Shadow";
+                        swatch_color: MaterialPalette.shadow;
+                        text_color: #ffffff;
+                    }
+                }
+
+                HorizontalDivider { }
+
+                // fonts and typography
+                SectionHeader {
+                    title: "Typography";
+                }
+
+                MaterialText {
+                    text: "MaterialTypography";
+                    style: MaterialTypography.body_medium;
+                    color: MaterialPalette.on_surface_variant;
+                }
+
+                MaterialText {
+                    text: "Display Large";
+                    style: MaterialTypography.display_large;
+                }
+
+                MaterialText {
+                    text: "Display Medium";
+                    style: MaterialTypography.display_medium;
+                }
+
+                MaterialText {
+                    text: "Display Small";
+                    style: MaterialTypography.display_small;
+                }
+
+                MaterialText {
+                    text: "Headline Large";
+                    style: MaterialTypography.headline_large;
+                }
+
+                MaterialText {
+                    text: "Headline Medium";
+                    style: MaterialTypography.headline_medium;
+                }
+
+                MaterialText {
+                    text: "Headline Small";
+                    style: MaterialTypography.headline_small;
+                }
+
+                MaterialText {
+                    text: "Title Large";
+                    style: MaterialTypography.title_large;
+                }
+
+                MaterialText {
+                    text: "Title Medium";
+                    style: MaterialTypography.title_medium;
+                }
+
+                MaterialText {
+                    text: "Title Small";
+                    style: MaterialTypography.title_small;
+                }
+
+                HorizontalLayout {
+                    spacing: 24px;
+
+                    MaterialText {
+                        text: "Label Large";
+                        style: MaterialTypography.label_large;
+                    }
+
+                    MaterialText {
+                        text: "Label Medium";
+                        style: MaterialTypography.label_medium;
+                    }
+
+                    MaterialText {
+                        text: "Label Small";
+                        style: MaterialTypography.label_small;
+                    }
+
+                    MaterialText {
+                        text: "Body Large";
+                        style: MaterialTypography.body_large;
+                    }
+
+                    MaterialText {
+                        text: "Body Medium";
+                        style: MaterialTypography.body_medium;
+                    }
+
+                    MaterialText {
+                        text: "Body Small";
+                        style: MaterialTypography.body_small;
+                    }
+                }
+
+                HorizontalDivider { }
+
+                // buttons
+                SectionHeader {
+                    title: "Buttons";
+                }
+
+                SubSectionHeader {
+                    title: "Standard Buttons";
+                }
+
+                HorizontalLayout {
+                    spacing: 12px;
+                    alignment: start;
+
+                    ElevatedButton {
+                        text: "Elevated";
+                    }
+
+                    FilledButton {
+                        text: "Filled";
+                    }
+
+                    TonalButton {
+                        text: "Tonal";
+                    }
+
+                    OutlineButton {
+                        text: "Outlined";
+                    }
+
+                    TextButton {
+                        text: "Text";
+                    }
+                }
+
+                HorizontalLayout {
+                    spacing: 12px;
+                    alignment: start;
+
+                    ElevatedButton {
+                        text: "Disabled";
+                        enabled: false;
+                    }
+
+                    FilledButton {
+                        text: "Disabled";
+                        enabled: false;
+                    }
+
+                    TonalButton {
+                        text: "Disabled";
+                        enabled: false;
+                    }
+
+                    OutlineButton {
+                        text: "Disabled";
+                        enabled: false;
+                    }
+
+                    TextButton {
+                        text: "Disabled";
+                        enabled: false;
+                    }
+                }
+
+                SubSectionHeader {
+                    title: "Icon Buttons";
+                }
+
+                HorizontalLayout {
+                    spacing: 12px;
+                    alignment: start;
+
+                    IconButton {
+                        tooltip: "Standard";
+                    }
+
+                    FilledIconButton {
+                        tooltip: "Filled";
+                    }
+
+                    TonalIconButton {
+                        tooltip: "Tonal";
+                    }
+
+                    OutlineIconButton {
+                        tooltip: "Outlined";
+                    }
+                }
+
+                SubSectionHeader {
+                    title: "Floating Action Buttons (FABs)";
+                }
+
+                HorizontalLayout {
+                    spacing: 16px;
+                    alignment: start;
+
+                    FloatingActionButton {
+                        text: "Create";
+                        style: FABStyle.small;
+                    }
+
+                    FloatingActionButton {
+                        text: "Compose";
+                        style: FABStyle.standard;
+                    }
+
+                    FloatingActionButton {
+                        style: FABStyle.large;
+                    }
+                }
+
+                HorizontalDivider { }
+
+                // selection controls
+                SectionHeader {
+                    title: "Selection Controls";
+                }
+
+                SubSectionHeader {
+                    title: "Switches";
+                }
+
+                HorizontalLayout {
+                    spacing: 24px;
+                    alignment: start;
+
+                    VerticalLayout {
+                        spacing: 4px;
+                        Switch {
+                            checked: root.switch-on;
+                        }
+
+                        MaterialText {
+                            text: "On";
+                            style: MaterialTypography.label_medium;
+                            horizontal-alignment: center;
+                        }
+                    }
+
+                    VerticalLayout {
+                        spacing: 4px;
+                        Switch {
+                            checked: root.switch-off;
+                        }
+
+                        MaterialText {
+                            text: "Off";
+                            style: MaterialTypography.label_medium;
+                            horizontal-alignment: center;
+                        }
+                    }
+
+                    VerticalLayout {
+                        spacing: 4px;
+                        Switch {
+                            enabled: false;
+                            checked: true;
+                        }
+
+                        MaterialText {
+                            text: "Disabled On";
+                            style: MaterialTypography.label_medium;
+                            horizontal-alignment: center;
+                        }
+                    }
+
+                    VerticalLayout {
+                        spacing: 4px;
+                        Switch {
+                            enabled: false;
+                        }
+
+                        MaterialText {
+                            text: "Disabled Off";
+                            style: MaterialTypography.label_medium;
+                            horizontal-alignment: center;
+                        }
+                    }
+                }
+
+                SubSectionHeader {
+                    title: "Checkboxes";
+                }
+
+                HorizontalLayout {
+                    spacing: 16px;
+                    alignment: start;
+
+                    VerticalLayout {
+                        spacing: 4px;
+                        CheckBox {
+                            check_state: CheckState.unchecked;
+                        }
+
+                        MaterialText {
+                            text: "Unchecked";
+                            style: MaterialTypography.label_small;
+                            horizontal-alignment: center;
+                        }
+                    }
+
+                    VerticalLayout {
+                        spacing: 4px;
+                        CheckBox {
+                            check_state: CheckState.checked;
+                        }
+
+                        MaterialText {
+                            text: "Checked";
+                            style: MaterialTypography.label_small;
+                            horizontal-alignment: center;
+                        }
+                    }
+
+                    VerticalLayout {
+                        spacing: 4px;
+                        CheckBox {
+                            check_state: CheckState.partially_checked;
+                            tristate: true;
+                        }
+
+                        MaterialText {
+                            text: "Partial";
+                            style: MaterialTypography.label_small;
+                            horizontal-alignment: center;
+                        }
+                    }
+
+                    VerticalLayout {
+                        spacing: 4px;
+                        CheckBox {
+                            has_error: true;
+                        }
+
+                        MaterialText {
+                            text: "Error";
+                            style: MaterialTypography.label_small;
+                            horizontal-alignment: center;
+                        }
+                    }
+
+                    VerticalLayout {
+                        spacing: 4px;
+                        CheckBox {
+                            enabled: false;
+                        }
+
+                        MaterialText {
+                            text: "Disabled";
+                            style: MaterialTypography.label_small;
+                            horizontal-alignment: center;
+                        }
+                    }
+                }
+
+                SubSectionHeader {
+                    title: "Radio Buttons";
+                }
+
+                HorizontalLayout {
+                    spacing: 4px;
+                    alignment: start;
+
+                    RadioButton {
+                        checked: root.radio-selected == 0;
+                        enabled: true;
+                        clicked => {
+                            root.radio-selected = 0;
+                        }
+                    }
+
+                    MaterialText {
+                        text: "Option A";
+                        style: MaterialTypography.body_medium;
+                    }
+
+                    RadioButton {
+                        checked: root.radio-selected == 1;
+                        enabled: true;
+                        clicked => {
+                            root.radio-selected = 1;
+                        }
+                    }
+
+                    MaterialText {
+                        text: "Option B";
+                        style: MaterialTypography.body_medium;
+                    }
+
+                    RadioButton {
+                        checked: root.radio-selected == 2;
+                        enabled: true;
+                        clicked => {
+                            root.radio-selected = 2;
+                        }
+                    }
+
+                    MaterialText {
+                        text: "Option C";
+                        style: MaterialTypography.body_medium;
+                    }
+                }
+
+                HorizontalDivider { }
+
+                // chips (not those, chud)
+                SectionHeader {
+                    title: "Chips";
+                }
+
+                HorizontalLayout {
+                    spacing: 8px;
+                    alignment: start;
+
+                    ActionChip {
+                        text: "Action";
+                    }
+
+                    FilterChip {
+                        text: "Filter";
+                        checked: root.filter-chip-checked;
+                    }
+
+                    FilterChip {
+                        text: "Selected";
+                        checked: true;
+                    }
+
+                    InputChip {
+                        text: "Input";
+                    }
+
+                    ActionChip {
+                        text: "Disabled";
+                        enabled: false;
+                    }
+                }
+
+                HorizontalDivider { }
+
+                // text inputs
+                SectionHeader {
+                    title: "Text Input";
+                }
+
+                HorizontalLayout {
+                    spacing: 16px;
+
+                    TextField {
+                        label: "Name";
+                        placeholder_text: "Enter Your Good Name";
+                        text <=> root.text-field-value;
+                        width: 250px;
+                    }
+
+                    TextField {
+                        label: "Email";
+                        placeholder_text: "user@example.com";
+                        supporting_text: "We'll never share your email. (or will we?)";
+                        width: 250px;
+                    }
+
+                    TextField {
+                        label: "Error Field";
+                        has_error: true;
+                        supporting_text: "This field is required";
+                        width: 200px;
+                    }
+                }
+
+                SubSectionHeader {
+                    title: "Search Bar";
+                }
+
+                SearchBar {
+                    placeholder_text: "Search components...";
+                    width: 400px;
+                }
+
+                HorizontalDivider { }
+
+                // sliders and progress bars
+                SectionHeader {
+                    title: "Slider & Progress Indicators";
+                }
+
+                SubSectionHeader {
+                    title: "Slider";
+                }
+
+                HorizontalLayout {
+                    spacing: 16px;
+                    alignment: start;
+
+                    Slider {
+                        value <=> root.slider-value;
+                        minimum: 0;
+                        maximum: 100;
+                        enabled: true;
+                        width: 300px;
+                    }
+
+                    MaterialText {
+                        text: round(root.slider-value);
+                        style: MaterialTypography.body_large;
+                        vertical-alignment: center;
+                    }
+                }
+
+                Slider {
+                    value: 60;
+                    minimum: 0;
+                    maximum: 100;
+                    stop_count: 5;
+                    enabled: true;
+                    width: 300px;
+                }
+
+                SubSectionHeader {
+                    title: "Progress Indicators";
+                }
+
+                HorizontalLayout {
+                    spacing: 24px;
+                    alignment: start;
+
+                    VerticalLayout {
+                        spacing: 8px;
+
+                        MaterialText {
+                            text: "Linear (65%)";
+                            style: MaterialTypography.label_medium;
+                        }
+
+                        LinearProgressIndicator {
+                            progress: root.progress-value;
+                            width: 300px;
+                        }
+
+                        MaterialText {
+                            text: "Linear (30%)";
+                            style: MaterialTypography.label_medium;
+                        }
+
+                        LinearProgressIndicator {
+                            progress: 0.30;
+                            width: 300px;
+                        }
+                    }
+
+                    VerticalLayout {
+                        spacing: 8px;
+                        alignment: center;
+
+                        MaterialText {
+                            text: "Circular (65%)";
+                            style: MaterialTypography.label_medium;
+                            horizontal-alignment: center;
+                        }
+
+                        CircularProgressIndicator {
+                            progress: root.progress-value;
+                            width: 48px;
+                            height: 48px;
+                        }
+                    }
+
+                    VerticalLayout {
+                        spacing: 8px;
+                        alignment: center;
+
+                        MaterialText {
+                            text: "Indeterminate";
+                            style: MaterialTypography.label_medium;
+                            horizontal-alignment: center;
+                        }
+
+                        CircularProgressIndicator {
+                            indeterminate: true;
+                            width: 48px;
+                            height: 48px;
+                        }
+                    }
+                }
+
+                HorizontalDivider { }
+
+                // cards
+                SectionHeader {
+                    title: "Cards";
+                }
+
+                HorizontalLayout {
+                    spacing: 16px;
+                    alignment: start;
+
+                    ElevatedCard {
+                        width: 220px;
+                        height: 140px;
+
+                        VerticalLayout {
+                            padding: 16px;
+                            spacing: 8px;
+
+                            MaterialText {
+                                text: "Elevated Card";
+                                style: MaterialTypography.title_medium;
+                            }
+
+                            MaterialText {
+                                text: "with nice looking elavation ;)";
+                                style: MaterialTypography.body_small;
+                                color: MaterialPalette.on_surface_variant;
+                                wrap: word-wrap;
+                            }
+                        }
+                    }
+
+                    FilledCard {
+                        width: 220px;
+                        height: 140px;
+
+                        VerticalLayout {
+                            padding: 16px;
+                            spacing: 8px;
+
+                            MaterialText {
+                                text: "Filled Card";
+                                style: MaterialTypography.title_medium;
+                            }
+
+                            MaterialText {
+                                text: "uses the surface_container_highest color";
+                                style: MaterialTypography.body_small;
+                                color: MaterialPalette.on_surface_variant;
+                                wrap: word-wrap;
+                            }
+                        }
+                    }
+
+                    OutlinedCard {
+                        width: 220px;
+                        height: 140px;
+
+                        VerticalLayout {
+                            padding: 16px;
+                            spacing: 8px;
+
+                            MaterialText {
+                                text: "Outlined Card";
+                                style: MaterialTypography.title_medium;
+                            }
+
+                            MaterialText {
+                                text: "outline card, should make sense";
+                                style: MaterialTypography.body_small;
+                                color: MaterialPalette.on_surface_variant;
+                                wrap: word-wrap;
+                            }
+                        }
+                    }
+                }
+
+                HorizontalDivider { }
+
+                // badge & elevations
+                SectionHeader {
+                    title: "Badge & Elevation Levels (L1 -> L5)"; // for stability, use l2 to l4 (makes more sense for design)
+                }
+
+                HorizontalLayout {
+                    spacing: 24px;
+                    alignment: start;
+
+                    VerticalLayout {
+                        spacing: 8px;
+                        MaterialText {
+                            text: "Badges";
+                            style: MaterialTypography.title_small;
+                        }
+
+                        HorizontalLayout {
+                            spacing: 16px;
+                            alignment: start;
+
+                            Badge {
+                                text: "3";
+                            }
+
+                            Badge {
+                                text: "99+";
+                            }
+
+                            Badge {
+                                text: "67";
+                            }
+
+                            Badge { }
+                        }
+                    }
+
+                    VerticalDivider {
+                        height: 80px;
+                    }
+
+                    VerticalLayout {
+                        spacing: 8px;
+                        MaterialText {
+                            text: "Elevation Levels";
+                            style: MaterialTypography.title_small;
+                        }
+
+                        HorizontalLayout {
+                            spacing: 12px;
+                            alignment: start;
+
+                            Elevation {
+                                width: 60px;
+                                height: 60px;
+                                level: 0;
+                                border_radius: 12px;
+                                background: MaterialPalette.surface;
+
+                                MaterialText {
+                                    text: "L0";
+                                    horizontal-alignment: center;
+                                    vertical-alignment: center;
+                                    style: MaterialTypography.label_medium;
+                                }
+                            }
+
+                            Elevation {
+                                width: 60px;
+                                height: 60px;
+                                level: 1;
+                                border_radius: 12px;
+                                background: MaterialPalette.surface;
+
+                                MaterialText {
+                                    text: "L1";
+                                    horizontal-alignment: center;
+                                    vertical-alignment: center;
+                                    style: MaterialTypography.label_medium;
+                                }
+                            }
+
+                            Elevation {
+                                width: 60px;
+                                height: 60px;
+                                level: 2;
+                                border_radius: 12px;
+                                background: MaterialPalette.surface;
+
+                                MaterialText {
+                                    text: "L2";
+                                    horizontal-alignment: center;
+                                    vertical-alignment: center;
+                                    style: MaterialTypography.label_medium;
+                                }
+                            }
+
+                            Elevation {
+                                width: 60px;
+                                height: 60px;
+                                level: 3;
+                                border_radius: 12px;
+                                background: MaterialPalette.surface;
+
+                                MaterialText {
+                                    text: "L3";
+                                    horizontal-alignment: center;
+                                    vertical-alignment: center;
+                                    style: MaterialTypography.label_medium;
+                                }
+                            }
+
+                            Elevation {
+                                width: 60px;
+                                height: 60px;
+                                level: 5;
+                                border_radius: 12px;
+                                background: MaterialPalette.surface;
+
+                                MaterialText {
+                                    text: "L5";
+                                    horizontal-alignment: center;
+                                    vertical-alignment: center;
+                                    style: MaterialTypography.label_medium;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                HorizontalDivider { }
+
+                // tabs and segmented buttons
+                SectionHeader {
+                    title: "Tabs & *Segmented Button";
+                }
+
+                SubSectionHeader {
+                    title: "Primary Tab Bar";
+                }
+
+                TabBar {
+                    items: root.tab-items;
+                    current_index <=> root.tab-index;
+                    width: 500px;
+                }
+
+                SubSectionHeader {
+                    title: "Secondary Tab Bar";
+                }
+
+                SecondaryTabBar {
+                    items: root.tab-items;
+                    current_index <=> root.secondary-tab-index;
+                    width: 500px;
+                }
+
+                SubSectionHeader {
+                    title: "Segmented Button";
+                }
+
+                SegmentedButton {
+                    items: [
+                        { text: "Day" },
+                        { text: "Week" },
+                        { text: "Month" },
+                        { text: "Year" },
+                    ];
+                    current_index <=> root.segmented-index;
+                }
+
+                HorizontalDivider { }
+
+                // lists
+                SectionHeader {
+                    title: "Lists";
+                }
+
+                OutlinedCard {
+                    width: 500px;
+
+                    VerticalLayout {
+                        ListTile {
+                            text: "First Item";
+                            supporting_text: "Supporting text for the first item";
+                            avatar_background: MaterialPalette.primary;
+                            avatar_text: "A";
+                            avatar_foreground: MaterialPalette.on_primary;
+                        }
+
+                        HorizontalDivider { }
+
+                        ListTile {
+                            text: "Second Item";
+                            supporting_text: "Supporting text for the second item";
+                            avatar_background: MaterialPalette.secondary;
+                            avatar_text: "B";
+                            avatar_foreground: MaterialPalette.on_secondary;
+                        }
+
+                        HorizontalDivider { }
+
+                        ListTile {
+                            text: "Third Item";
+                            supporting_text: "Supporting text for the third item";
+                            avatar_background: MaterialPalette.tertiary;
+                            avatar_text: "C";
+                            avatar_foreground: MaterialPalette.on_tertiary;
+                        }
+                    }
+                }
+
+                HorizontalDivider { }
+
+                // tooltips
+                // readme: issues with @material/ToolTip, has been causing a thread panic
+                // this  will be disabled (as tooltips are not in the schedule of fixing)
+
+                // SectionHeader {
+                //     title: "Tooltip";
+                // }
+
+                // HorizontalLayout {
+                //     spacing: 16px;
+                //     alignment: start;
+
+                //     ToolTip {
+                //         text: "This is a tooltip";
+                //     }
+
+                //     ToolTip {
+                //         text: "Another tooltip with longer text that wraps";
+                //     }
+                // }
+
+                // HorizontalDivider { }
+
+                // dividers
+                SectionHeader {
+                    title: "Dividers";
+                }
+
+                MaterialText {
+                    text: "Horizontal dividers separate content sections (of COURSE):";
+                    style: MaterialTypography.body_medium;
+                    color: MaterialPalette.on_surface_variant;
+                }
+
+                HorizontalDivider { }
+
+                HorizontalLayout {
+                    spacing: 16px;
+                    height: 60px;
+                    alignment: start;
+
+                    MaterialText {
+                        text: "Left";
+                        style: MaterialTypography.body_medium;
+                        vertical-alignment: center;
+                    }
+
+                    VerticalDivider { }
+
+                    MaterialText {
+                        text: "Middle";
+                        style: MaterialTypography.body_medium;
+                        vertical-alignment: center;
+                    }
+
+                    VerticalDivider { }
+
+                    MaterialText {
+                        text: "Right";
+                        style: MaterialTypography.body_medium;
+                        vertical-alignment: center;
+                    }
+                }
+
+                HorizontalDivider { }
+
+                // animations refs
+                SectionHeader {
+                    title: "Animation Tokens";
+                }
+
+                MaterialText {
+                    text: "MaterialAnimations (Slint Native animations, there *might be a vex animation adapter)";
+                    style: MaterialTypography.body_medium;
+                    color: MaterialPalette.on_surface_variant;
+                }
+
+                OutlinedCard {
+                    width: 600px;
+
+                    VerticalLayout {
+                        padding: 16px;
+                        spacing: 4px;
+
+                        MaterialText {
+                            text: "emphasized_duration: 500ms";
+                            style: MaterialTypography.body_small;
+                        }
+
+                        MaterialText {
+                            text: "emphasized_decelerate_duration: 400ms";
+                            style: MaterialTypography.body_small;
+                        }
+
+                        MaterialText {
+                            text: "emphasized_accelerate_duration: 200ms";
+                            style: MaterialTypography.body_small;
+                        }
+
+                        MaterialText {
+                            text: "standard_decelerate_duration: 250ms";
+                            style: MaterialTypography.body_small;
+                        }
+
+                        MaterialText {
+                            text: "standard_accelerate_duration: 200ms";
+                            style: MaterialTypography.body_small;
+                        }
+
+                        MaterialText {
+                            text: "standard_fast_duration: 150ms";
+                            style: MaterialTypography.body_small;
+                        }
+
+                        MaterialText {
+                            text: "ripple_duration: 2s";
+                            style: MaterialTypography.body_small;
+                        }
+
+                        MaterialText {
+                            text: "opacity_duration: 250ms";
+                            style: MaterialTypography.body_small;
+                        }
+                    }
+                }
+
+                HorizontalDivider { }
+
+                // metrics reference
+                SectionHeader {
+                    title: "Style Metrics";
+                }
+
+                MaterialText {
+                    text: "MaterialStyleMetrics: sizes, padding, spacing, border radiuses";
+                    style: MaterialTypography.body_medium;
+                    color: MaterialPalette.on_surface_variant;
+                }
+
+                HorizontalLayout {
+                    spacing: 16px;
+
+                    OutlinedCard {
+                        width: 180px;
+
+                        VerticalLayout {
+                            padding: 12px;
+                            spacing: 2px;
+                            MaterialText {
+                                text: "Sizes";
+                                style: MaterialTypography.title_small;
+                                color: MaterialPalette.primary;
+                            }
+
+                            MaterialText {
+                                text: "size_4: 4px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "size_8: 8px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "size_16: 16px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "size_24: 24px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "size_40: 40px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "size_56: 56px";
+                                style: MaterialTypography.body_small;
+                            }
+                        }
+                    }
+
+                    OutlinedCard {
+                        width: 180px;
+
+                        VerticalLayout {
+                            padding: 12px;
+                            spacing: 2px;
+                            MaterialText {
+                                text: "Padding";
+                                style: MaterialTypography.title_small;
+                                color: MaterialPalette.primary;
+                            }
+
+                            MaterialText {
+                                text: "padding_4: 4px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "padding_8: 8px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "padding_12: 12px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "padding_16: 16px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "padding_24: 24px";
+                                style: MaterialTypography.body_small;
+                            }
+                        }
+                    }
+
+                    OutlinedCard {
+                        width: 180px;
+
+                        VerticalLayout {
+                            padding: 12px;
+                            spacing: 2px;
+                            MaterialText {
+                                text: "Border Radius";
+                                style: MaterialTypography.title_small;
+                                color: MaterialPalette.primary;
+                            }
+
+                            MaterialText {
+                                text: "radius_2: 2px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "radius_4: 4px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "radius_8: 8px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "radius_12: 12px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "radius_16: 16px";
+                                style: MaterialTypography.body_small;
+                            }
+
+                            MaterialText {
+                                text: "radius_28: 28px";
+                                style: MaterialTypography.body_small;
+                            }
+                        }
+                    }
+                }
+
+                // bottom spacer
+                Rectangle {
+                    height: 32px;
+                }
+            }
+        }
+
+        // navigation bar (bottom)
+        NavigationBar {
+            items: root.nav-items;
+            current_index <=> root.nav-index;
+        }
+    }
+
+    // snackBar (popup)
+    snack-bar := SnackBar {
+        text: "This is a snackbar message (here are some snacks)";
+        action_text: "Undo";
+        has_close_button: true;
+    }
+
+    // dialog
+    demo-dialog := Dialog {
+        title: "Dialog Title";
+        actions: ["Cancel"];
+        default_action_text: "007";
+
+        MaterialText {
+            text: "This is a Material Design 3 dialog with actions.";
+            style: MaterialTypography.body_medium;
+            color: MaterialPalette.on_surface;
+            wrap: word-wrap;
+        }
+    }
+}
+
+
+// this is technically docs, but its practical (as it is compiled into code)

@@ -12,5 +12,5 @@ fn main() {
                 .join("crates/md3/material.slint"),
         )]),
     );
-    // slint_build::compile_with_config("ui/main.slint", config).unwrap();
+    slint_build::compile_with_config("ui/demo.slint", config).unwrap();
 }
