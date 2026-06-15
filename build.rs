@@ -9,7 +9,7 @@ fn main() {
         std::collections::HashMap::from([(
             "material".to_string(),
             std::path::Path::new(&std::env::var_os("CARGO_MANIFEST_DIR").unwrap())
-                .join("crates/md3/material.slint"),
+                .join("crates/m3-base/material.slint"),
         )]),
     );
     slint_build::compile_with_config("ui/demo.slint", config).unwrap();
